@@ -1,0 +1,30 @@
+@import '~@reuters-graphics/style-theme-eisbaer/scss/main';
+@import '~@reuters-graphics/style-color/scss/thematic/brand';
+$light-yellow: '#fce587';
+
+#{$TestingDots-container} {
+  position: relative;
+  padding-top: 15px;
+  padding-left: 10px;
+  /* Write your chart styles here */
+  .dot-box {
+    line-height: .5rem;
+  }
+  .ref-box-label{
+    position: absolute;
+    top: -16px;
+    left: 10px;
+    font-size: .7rem;
+  }
+  .ref-box{
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    border-radius: 10px;
+  }
+  .dot-el {
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+}
