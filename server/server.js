@@ -11,7 +11,6 @@ if (dev) {
   polka()
     .use(
       compression({ threshold: 0 }),
-      sirv('server/static', { dev }),
       sapper.middleware()
     )
     .listen(PORT, err => {
@@ -22,7 +21,6 @@ if (dev) {
     .use(
       '/chart-module-testing-dots',
       compression({ threshold: 0 }),
-      sirv('server/static', { dev }),
       sapper.middleware()
     )
     .listen(PORT, err => {
