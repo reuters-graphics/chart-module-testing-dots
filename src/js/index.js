@@ -22,7 +22,7 @@ class TestingDots extends BaseChartComponent {
       fills: {
         positive: '#fce587',
         refbox: 'rgba(255,255,255,.2)',
-        tests: '#efefef',
+        tests: 'rgba(255,255,255,.4)',
       },
       dotSize: 15,
       dotMargin: 4,
@@ -81,13 +81,13 @@ class TestingDots extends BaseChartComponent {
       let useArray, useRefVal, useSize, useMargin;
       if (usePosRate > 1) {
         useArray = Array.from(Array(100).keys());
-        useRefVal = props.refBoxValue
+        useRefVal = props.refBoxValue;
         useSize = props.dotSize;
         useMargin = props.dotMargin;
-      } else if (usePosRate > 0.1) {
+      } else if (usePosRate > 0) {
         useArray = Array.from(Array(1000).keys());
-        useRefVal = props.refBoxValue*10
-        useSize = Math.floor(props.dotSize/2)
+        useRefVal = props.refBoxValue*10;
+        useSize = Math.floor(props.dotSize/2);
         useMargin = props.dotMargin/2;
       }
 
@@ -98,7 +98,7 @@ class TestingDots extends BaseChartComponent {
         .appendSelect('div.ref-box')
         .style('background-color', props.fills.refbox)
         .style('margin-left', `-${useMargin}px`)
-        .style('margin-top', `-${useMargin}px`)
+        .style('margin-top', `${useMargin-1}px`)
         .style('width', (((useRefVal + 1) * (useMargin + useSize)) + (useMargin * 2)) + 'px')
         .style('height', ((useMargin * 4) + useSize) + 'px');
 
@@ -106,7 +106,16 @@ class TestingDots extends BaseChartComponent {
         .appendSelect('p.ref-box-label')
         .style('margin-left', `-${useMargin}px`)
         .text(props.labelText)
-        .style('color', props.labelColor)
+        .style('color', props.labelColor);
+
+      this.selection()
+        .appendSelect('div.ref-box-label-line')
+        .style('margin-left', `10px`)
+        .style('margin-top', `-12px`)
+        .style('height', '10px')
+        .style('width', '2px')
+        .style('position', 'absolute')
+        .style('background-color', props.fills.refbox);
 
       this.div = this.selection()
         .appendSelect('div.dot-box');// 👈 Use appendSelect instead of append for non-data-bound elements!
@@ -122,10 +131,17 @@ class TestingDots extends BaseChartComponent {
           enter => enter.append('div')
             .attr('class', 'dot-el')
             .style('background-color', (d, i) => {
-              if (i < usePosRate) {
+              if (i < usePosRate && usePosRate > 0.1) {
                 return props.fills.positive;
               } else {
-                return props.fills.tests;
+                return 'none';
+              };
+            })
+            .style('border', (d, i) => {
+              if (i < usePosRate && usePosRate > 0.1) {
+                return props.fills.positive;
+              } else {
+                return `${props.fills.tests} 1px solid`;
               };
             })
             .style('height', useSize + 'px')
@@ -136,10 +152,17 @@ class TestingDots extends BaseChartComponent {
 
           update => update
             .style('background-color', (d, i) => {
-              if (i < usePosRate) {
+              if (i < usePosRate && usePosRate > 0.1) {
                 return props.fills.positive;
               } else {
-                return props.fills.tests;
+                return 'none';
+              };
+            })
+            .style('border', (d, i) => {
+              if (i < usePosRate && usePosRate > 0.1) {
+                return props.fills.positive;
+              } else {
+                return `${props.fills.tests} 1px solid`;
               };
             })
             .call(update => update.transition(transition)
@@ -149,7 +172,6 @@ class TestingDots extends BaseChartComponent {
             .call(exit => exit.transition(transition)
               .remove())
         );
-
 
       return this; // Generally, always return the chart class from draw!
     }
