@@ -128,49 +128,25 @@ class TestingDots extends BaseChartComponent {
       // ... or feel free to use the old, reliable General Update Pattern.
       plot.selectAll('div.dot-el')
         .data(useArray)
-        .join(
-          enter => enter.append('div')
-            .attr('class', 'dot-el')
-            .style('background-color', (d, i) => {
-              if (i < usePosRate && usePosRate > 0.1) {
-                return props.fills.positive;
-              } else {
-                return 'none';
-              };
-            })
-            .style('border', (d, i) => {
-              if (i < usePosRate && usePosRate > 0.1) {
-                return props.fills.positive;
-              } else {
-                return `${props.fills.tests} 1px solid`;
-              };
-            })
-            .style('height', useSize + 'px')
-            .style('width', useSize + 'px')
-            .style('margin', useMargin + 'px'),
-
-          update => update
-            .style('background-color', (d, i) => {
-              if (i < usePosRate && usePosRate > 0.1) {
-                return props.fills.positive;
-              } else {
-                return 'none';
-              };
-            })
-            .style('border', (d, i) => {
-              if (i < usePosRate && usePosRate > 0.1) {
-                return props.fills.positive;
-              } else {
-                return `${props.fills.tests} 1px solid`;
-              };
-            })
-            .style('height', useSize + 'px')
-            .style('width', useSize + 'px')
-            .style('margin', useMargin + 'px'),
-
-          exit => exit
-            .call(exit => exit.remove())
-        );
+        .join('div')
+        .attr('class', 'dot-el')
+        .style('background-color', (d, i) => {
+          if (i < usePosRate && usePosRate > 0.1) {
+            return props.fills.positive;
+          } else {
+            return 'none';
+          };
+        })
+        .style('border', (d, i) => {
+          if (i < usePosRate && usePosRate > 0.1) {
+            return props.fills.positive;
+          } else {
+            return `${props.fills.tests} 1px solid`;
+          };
+        })
+        .style('height', useSize + 'px')
+        .style('width', useSize + 'px')
+        .style('margin', useMargin + 'px');
 
       return this; // Generally, always return the chart class from draw!
     }

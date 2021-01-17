@@ -3153,39 +3153,19 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
       // Read more about that here: https://observablehq.com/@d3/selection-join
       // ... or feel free to use the old, reliable General Update Pattern.
 
-      plot.selectAll('div.dot-el').data(useArray).join(function (enter) {
-        return enter.append('div').attr('class', 'dot-el').style('background-color', function (d, i) {
-          if (i < usePosRate && usePosRate > 0.1) {
-            return props.fills.positive;
-          } else {
-            return 'none';
-          }
-        }).style('border', function (d, i) {
-          if (i < usePosRate && usePosRate > 0.1) {
-            return props.fills.positive;
-          } else {
-            return "".concat(props.fills.tests, " 1px solid");
-          }
-        }).style('height', useSize + 'px').style('width', useSize + 'px').style('margin', useMargin + 'px');
-      }, function (update) {
-        return update.style('background-color', function (d, i) {
-          if (i < usePosRate && usePosRate > 0.1) {
-            return props.fills.positive;
-          } else {
-            return 'none';
-          }
-        }).style('border', function (d, i) {
-          if (i < usePosRate && usePosRate > 0.1) {
-            return props.fills.positive;
-          } else {
-            return "".concat(props.fills.tests, " 1px solid");
-          }
-        }).style('height', useSize + 'px').style('width', useSize + 'px').style('margin', useMargin + 'px');
-      }, function (exit) {
-        return exit.call(function (exit) {
-          return exit.remove();
-        });
-      });
+      plot.selectAll('div.dot-el').data(useArray).join('div').attr('class', 'dot-el').style('background-color', function (d, i) {
+        if (i < usePosRate && usePosRate > 0.1) {
+          return props.fills.positive;
+        } else {
+          return 'none';
+        }
+      }).style('border', function (d, i) {
+        if (i < usePosRate && usePosRate > 0.1) {
+          return props.fills.positive;
+        } else {
+          return "".concat(props.fills.tests, " 1px solid");
+        }
+      }).style('height', useSize + 'px').style('width', useSize + 'px').style('margin', useMargin + 'px');
       return this; // Generally, always return the chart class from draw!
     }
   }]);
