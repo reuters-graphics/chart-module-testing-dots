@@ -62,10 +62,10 @@ class TestingDots extends BaseChartComponent {
       }
 
       for (let i = 0; i < data.tests.length; i++) {
-        let caseNum = data.cases.filter(d=> d.date === data.tests[i].date)[0];
+        const caseNum = data.cases.filter(d => d.date === data.tests[i].date)[0];
         if (caseNum) {
           data.tests[i].caseMean = caseNum.mean;
-          data.tests[i].posRate = data.tests[i].caseMean/data.tests[i].mean * 100;
+          data.tests[i].posRate = data.tests[i].caseMean / data.tests[i].mean * 100;
         }
       }
 
@@ -78,6 +78,10 @@ class TestingDots extends BaseChartComponent {
         usePosRate = useNum.posRate;
       }
 
+      // Little trick so I can use the chart's calc of the positivity
+      // rate outside the chart for things like smarttext.
+      this.positivityRate = usePosRate;
+
       let useArray, useRefVal, useSize, useMargin;
       if (usePosRate > 1) {
         useArray = Array.from(Array(100).keys());
@@ -86,9 +90,9 @@ class TestingDots extends BaseChartComponent {
         useMargin = props.dotMargin;
       } else if (usePosRate > 0) {
         useArray = Array.from(Array(1000).keys());
-        useRefVal = props.refBoxValue*10;
-        useSize = Math.floor(props.dotSize/2);
-        useMargin = props.dotMargin/2;
+        useRefVal = props.refBoxValue * 10;
+        useSize = Math.floor(props.dotSize / 2);
+        useMargin = props.dotMargin / 2;
       }
 
       const transition = d3.transition()
@@ -98,7 +102,7 @@ class TestingDots extends BaseChartComponent {
         .appendSelect('div.ref-box')
         .style('background-color', props.fills.refbox)
         .style('margin-left', `-${useMargin}px`)
-        .style('margin-top', `${useMargin-1}px`)
+        .style('margin-top', `${useMargin - 1}px`)
         .style('width', (((useRefVal + 1) * (useMargin + useSize)) + (useMargin * 2)) + 'px')
         .style('height', ((useMargin * 4) + useSize) + 'px');
 
@@ -110,8 +114,8 @@ class TestingDots extends BaseChartComponent {
 
       this.selection()
         .appendSelect('div.ref-box-label-line')
-        .style('margin-left', `10px`)
-        .style('margin-top', `-12px`)
+        .style('margin-left', '10px')
+        .style('margin-top', '-12px')
         .style('height', '10px')
         .style('width', '2px')
         .style('position', 'absolute')

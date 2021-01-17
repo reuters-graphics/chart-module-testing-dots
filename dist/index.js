@@ -3125,8 +3125,11 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
         usePosRate = Math.floor(useNum.posRate);
       } else {
         usePosRate = useNum.posRate;
-      }
+      } // Little trick so I can use the chart's calc of the positivity
+      // rate outside the chart for things like smarttext.
 
+
+      this.positivityRate = usePosRate;
       var useArray, useRefVal, useSize, useMargin;
 
       if (usePosRate > 1) {
@@ -3144,7 +3147,7 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
       var transition = d3.transition().duration(500);
       this.selection().appendSelect('div.ref-box').style('background-color', props.fills.refbox).style('margin-left', "-".concat(useMargin, "px")).style('margin-top', "".concat(useMargin - 1, "px")).style('width', (useRefVal + 1) * (useMargin + useSize) + useMargin * 2 + 'px').style('height', useMargin * 4 + useSize + 'px');
       this.selection().appendSelect('p.ref-box-label').style('margin-left', "-".concat(useMargin, "px")).text(props.labelText).style('color', props.labelColor);
-      this.selection().appendSelect('div.ref-box-label-line').style('margin-left', "10px").style('margin-top', "-12px").style('height', '10px').style('width', '2px').style('position', 'absolute').style('background-color', props.fills.refbox);
+      this.selection().appendSelect('div.ref-box-label-line').style('margin-left', '10px').style('margin-top', '-12px').style('height', '10px').style('width', '2px').style('position', 'absolute').style('background-color', props.fills.refbox);
       this.div = this.selection().appendSelect('div.dot-box'); // 👈 Use appendSelect instead of append for non-data-bound elements!
 
       var plot = this.div; // We're using d3's new data join method here.
