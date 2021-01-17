@@ -3144,7 +3144,6 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
         useMargin = props.dotMargin / 2;
       }
 
-      var transition = d3.transition().duration(500);
       this.selection().appendSelect('div.ref-box').style('background-color', props.fills.refbox).style('margin-left', "-".concat(useMargin, "px")).style('margin-top', "".concat(useMargin - 1, "px")).style('width', (useRefVal + 1) * (useMargin + useSize) + useMargin * 2 + 'px').style('height', useMargin * 4 + useSize + 'px');
       this.selection().appendSelect('p.ref-box-label').style('margin-left', "-".concat(useMargin, "px")).text(props.labelText).style('color', props.labelColor);
       this.selection().appendSelect('div.ref-box-label-line').style('margin-left', '10px').style('margin-top', '-12px').style('height', '10px').style('width', '2px').style('position', 'absolute').style('background-color', props.fills.refbox);
@@ -3167,9 +3166,7 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
           } else {
             return "".concat(props.fills.tests, " 1px solid");
           }
-        }).style('height', useSize + 'px').style('width', useSize + 'px').style('margin', useMargin + 'px').call(function (enter) {
-          return enter.transition(transition);
-        });
+        }).style('height', useSize + 'px').style('width', useSize + 'px').style('margin', useMargin + 'px');
       }, function (update) {
         return update.style('background-color', function (d, i) {
           if (i < usePosRate && usePosRate > 0.1) {
@@ -3183,12 +3180,10 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
           } else {
             return "".concat(props.fills.tests, " 1px solid");
           }
-        }).call(function (update) {
-          return update.transition(transition);
-        });
+        }).style('height', useSize + 'px').style('width', useSize + 'px').style('margin', useMargin + 'px');
       }, function (exit) {
         return exit.call(function (exit) {
-          return exit.transition(transition).remove();
+          return exit.remove();
         });
       });
       return this; // Generally, always return the chart class from draw!

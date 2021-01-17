@@ -95,9 +95,6 @@ class TestingDots extends BaseChartComponent {
         useMargin = props.dotMargin / 2;
       }
 
-      const transition = d3.transition()
-        .duration(500);
-
       this.selection()
         .appendSelect('div.ref-box')
         .style('background-color', props.fills.refbox)
@@ -150,9 +147,7 @@ class TestingDots extends BaseChartComponent {
             })
             .style('height', useSize + 'px')
             .style('width', useSize + 'px')
-            .style('margin', useMargin + 'px')
-            .call(enter => enter.transition(transition)
-            ),
+            .style('margin', useMargin + 'px'),
 
           update => update
             .style('background-color', (d, i) => {
@@ -169,12 +164,12 @@ class TestingDots extends BaseChartComponent {
                 return `${props.fills.tests} 1px solid`;
               };
             })
-            .call(update => update.transition(transition)
-            ),
+            .style('height', useSize + 'px')
+            .style('width', useSize + 'px')
+            .style('margin', useMargin + 'px'),
 
           exit => exit
-            .call(exit => exit.transition(transition)
-              .remove())
+            .call(exit => exit.remove())
         );
 
       return this; // Generally, always return the chart class from draw!
