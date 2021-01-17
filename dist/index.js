@@ -3157,7 +3157,7 @@ var TestingDots = /*#__PURE__*/function (_BaseChartComponent) {
         if (i < usePosRate && usePosRate > 0.1) {
           return props.fills.positive;
         } else {
-          return 'none';
+          return 'transparent';
         }
       }).style('border', function (d, i) {
         if (i < usePosRate && usePosRate > 0.1) {
